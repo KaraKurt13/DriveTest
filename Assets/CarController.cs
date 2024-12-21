@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    WheelCollider[] _colliders;
 
-    // Update is called once per frame
-    void Update()
+    float _torque = 100;
+
+    float _angle = 45f;
+
+    private void Update()
     {
-        
+        foreach (var collider in _colliders)
+        {
+            collider.motorTorque = Input.GetAxis("Vertical") * _torque;
+        }
     }
 }
