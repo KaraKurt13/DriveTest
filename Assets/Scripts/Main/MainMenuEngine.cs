@@ -7,10 +7,5 @@ namespace Assets.Scripts.Main
     public class MainMenuEngine : MonoBehaviour
     {
         public MultiplayerManager MultiplayerManager;
-
-        private void Awake()
-        {
-            MultiplayerManager.Initialize();
-        }
     }
 }

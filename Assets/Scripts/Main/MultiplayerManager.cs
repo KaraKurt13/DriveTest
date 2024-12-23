@@ -9,18 +9,18 @@ namespace Assets.Scripts.Main
 {
     public class MultiplayerManager : MonoBehaviourPunCallbacks
     {
-        public static MultiplayerManager Instance;
+        public static MultiplayerManager Instance { get; private set; }
 
-        public List<RoomInfo> Rooms = new();
+        public List<RoomInfo> Rooms { get; private set; } = new();
 
-        public Action RoomsListUpdated;
+        public Action RoomsListUpdated { get; set; }
 
-        public void Initialize()
+        private void Awake()
         {
             if (Instance == null)
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject); // Сохраняем объект при смене сцен
+                DontDestroyOnLoad(gameObject);
             }
             else
             {

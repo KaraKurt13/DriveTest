@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Assets.Scripts.Helpers
 {
-
     public static class TimeHelper
     {
         public const int TicksPerSecond = 50;
