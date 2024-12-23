@@ -12,6 +12,8 @@ namespace Assets.Scripts.UI
 
         public SettingsComponent SettingsComponent;
 
+        public MultiplayerWindowComponent MultiplayerWindowComponent;
+
         public void DrawMailPanel()
         {
             _mainPanel.SetActive(true);
