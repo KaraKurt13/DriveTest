@@ -12,14 +12,14 @@ namespace Assets.Scripts.Car
         [SerializeField]
         private Transform _frontLeftWheelTransform, _frontRightWheelTransform, _rearLeftWheelTransform, _rearRightWheelTransform;
 
-        private const float _maxTorque = 1000, _maxSteerAngle = 30f, _brakeForce = 3000f;
-
         private float _currentSteerAngle, _targetSteerAngle = 0f;
 
         private float _horizontalInput, _verticalInput;
         private bool _brakeInput;
 
         public bool IsDrifting { get; private set; }
+
+        private const float _maxTorque = 1000, _maxSteerAngle = 30f, _brakeForce = 3000f, _wheelsRotationStep = 10f;
 
         private void Update()
         {
@@ -53,7 +53,9 @@ namespace Assets.Scripts.Car
 
         private void HandleSteering()
         {
-            _currentSteerAngle = _horizontalInput * _maxSteerAngle;
+            _targetSteerAngle = _horizontalInput * _maxSteerAngle;
+            _currentSteerAngle = Mathf.LerpAngle(_currentSteerAngle, _targetSteerAngle, Time.deltaTime * _wheelsRotationStep);
+
             _frontLeftWheelCollider.steerAngle = _currentSteerAngle;
             _frontRightWheelCollider.steerAngle = _currentSteerAngle;
         }
