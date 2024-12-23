@@ -29,7 +29,6 @@ namespace Assets.Scripts.Car
 
         private void FixedUpdate()
         {
-            Debug.Log(_brakeInput);
             HandleMotor();
             HandleSteering();
             HandleBrake();
@@ -64,8 +63,8 @@ namespace Assets.Scripts.Car
         {
             var brakeForce = _brakeInput ? _brakeForce : 0f;
 
-            _frontLeftWheelCollider.brakeTorque = brakeForce;
-            _frontRightWheelCollider.brakeTorque = brakeForce;
+            //_frontLeftWheelCollider.brakeTorque = brakeForce;
+            //_frontRightWheelCollider.brakeTorque = brakeForce;
             _rearLeftWheelCollider.brakeTorque = brakeForce;
             _rearRightWheelCollider.brakeTorque = brakeForce;
         }
