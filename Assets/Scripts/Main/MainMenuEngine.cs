@@ -1,3 +1,4 @@
+using Assets.Scripts.Helpers;
 using Assets.Scripts.SaveData;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace Assets.Scripts.Main
 
         private void Awake()
         {
+            DataLibrary.Instance.InitData();
             SaveSystem.LoadPlayerData();
         }
     }

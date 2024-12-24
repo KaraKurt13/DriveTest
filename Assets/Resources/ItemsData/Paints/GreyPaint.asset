@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0958d6da29b025f41ab0916360cfc6ba, type: 3}
+  m_Name: GreyPaint
+  m_EditorClassIdentifier: 
+  Name: Grey paint
+  Price: 10
+  Icon: {fileID: 21300000, guid: 21b84bd14e22ba54388bd7d7af0e79a2, type: 3}
+  PaintType: 3
+  Material: {fileID: 2100000, guid: a019ec2def1fa334f9de4c0609bf1c3e, type: 2}

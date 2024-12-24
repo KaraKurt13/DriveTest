@@ -14,7 +14,12 @@ namespace Assets.Scripts.UI
 
         public MultiplayerWindowComponent MultiplayerWindowComponent;
 
-        public void DrawMailPanel()
+        private void Start()
+        {
+            ShopMenuComponent.Initialize();
+        }
+
+        public void DrawMainPanel()
         {
             _mainPanel.SetActive(true);
         }

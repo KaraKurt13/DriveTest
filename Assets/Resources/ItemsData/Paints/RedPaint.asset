@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0958d6da29b025f41ab0916360cfc6ba, type: 3}
+  m_Name: RedPaint
+  m_EditorClassIdentifier: 
+  Name: Red paint
+  Price: 15
+  Icon: {fileID: 21300000, guid: b7f8c0299ac5dee4a94f189866351214, type: 3}
+  PaintType: 2
+  Material: {fileID: 2100000, guid: 13aa2464d50ef484484abe0151c29a37, type: 2}

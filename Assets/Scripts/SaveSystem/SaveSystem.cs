@@ -9,13 +9,13 @@ namespace Assets.Scripts.SaveData
 {
     public static class SaveSystem
     {
-        public static PlayerSaveData SaveData;
+        public static PlayerSaveData PlayerData;
 
         private static string _savePath = Path.Combine(Application.persistentDataPath, "save.json");
 
         public static void SavePlayerData()
         {
-            string json = JsonConvert.SerializeObject(SaveData);
+            string json = JsonConvert.SerializeObject(PlayerData);
             File.WriteAllText(_savePath, json);
             Debug.Log("Data saved");
         }
@@ -25,14 +25,14 @@ namespace Assets.Scripts.SaveData
             if (File.Exists(_savePath))
             {
                 string json = File.ReadAllText(_savePath);
-                SaveData = JsonConvert.DeserializeObject<PlayerSaveData>(json);
+                PlayerData = JsonConvert.DeserializeObject<PlayerSaveData>(json);
             }
             else
             {
-                SaveData = new PlayerSaveData();
+                PlayerData = new PlayerSaveData();
                 SavePlayerData();
             }
-            Debug.Log($"Data loaded = {SaveData} ");
+            Debug.Log($"Data loaded = {PlayerData} ");
         }
     }
 }

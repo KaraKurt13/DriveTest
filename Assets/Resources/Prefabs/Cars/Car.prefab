@@ -244,6 +244,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d4ddc2bb91a7fa4d982422b64cb3831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Transform: {fileID: 1825168795443589372}
+  Rigidbody: {fileID: 412060843889541777}
+  IsControllable: 0
   _frontLeftWheelCollider: {fileID: 6697199928010887067}
   _frontRightWheelCollider: {fileID: 5501224979724631595}
   _rearLeftWheelCollider: {fileID: 3459136100596714608}
