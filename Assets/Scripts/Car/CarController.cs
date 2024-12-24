@@ -6,6 +6,12 @@ namespace Assets.Scripts.Car
 {
     public class CarController : MonoBehaviour
     {
+        public Transform Transform;
+
+        public Rigidbody Rigidbody;
+
+        public bool IsControllable = false;
+
         [SerializeField]
         private WheelCollider _frontLeftWheelCollider, _frontRightWheelCollider, _rearLeftWheelCollider, _rearRightWheelCollider;
 
@@ -19,12 +25,13 @@ namespace Assets.Scripts.Car
 
         public bool IsDrifting { get; private set; }
 
-        private const float _maxTorque = 1000, _maxSteerAngle = 30f, _brakeForce = 3000f, _wheelsRotationStep = 10f;
+        private const float _maxTorque = 1000, _maxSteerAngle = 30f, _brakeForce = 5000f, _wheelsRotationStep = 10f;
 
         private void Update()
         {
             GetInput();
             UpdateWheels();
+            Debug.Log(IsDrifting);
         }
 
         private void FixedUpdate()
@@ -37,6 +44,8 @@ namespace Assets.Scripts.Car
 
         private void GetInput()
         {
+            if (!IsControllable)
+                return;
             _verticalInput = Input.GetAxis("Vertical");
             _horizontalInput = Input.GetAxis("Horizontal");
             _brakeInput = Input.GetKey(KeyCode.Space);
@@ -69,11 +78,6 @@ namespace Assets.Scripts.Car
             _rearRightWheelCollider.brakeTorque = brakeForce;
         }
 
-        private void HandleDrifting()
-        {
-
-        }
-
         private void UpdateWheels()
         {
             UpdateSingleWheel(_rearLeftWheelCollider, _rearLeftWheelTransform);
@@ -91,9 +95,14 @@ namespace Assets.Scripts.Car
             wheelTransform.position = position;
         }
 
-        private void LerpWheelRotation()
+        private void HandleDrifting()
         {
+            Vector3 velocity = Rigidbody.velocity;
 
+            float lateralVelocity = Vector3.Dot(transform.right, velocity);
+
+            IsDrifting = Mathf.Abs(lateralVelocity) > 1f && _verticalInput != 0;
+            Debug.Log(IsDrifting);
         }
     }
 }
