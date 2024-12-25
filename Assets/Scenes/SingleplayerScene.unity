@@ -2735,6 +2735,7 @@ MonoBehaviour:
   SceneController: {fileID: 829870613}
   _streetSpawnPoint: {fileID: 1714718235}
   _garageSpawnPoint: {fileID: 828103092}
+  IsWaitingForPlayers: 1
 --- !u!114 &865661217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4667,6 +4668,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerScore: {fileID: 232534934}
   _earnedMoney: {fileID: 59643356}
+  _doubleReward: {fileID: 393321310}
 --- !u!1 &1648146260
 GameObject:
   m_ObjectHideFlags: 0
@@ -6251,6 +6253,7 @@ MonoBehaviour:
   PlayerStatsComponent: {fileID: 1196699831}
   GarageComponent: {fileID: 856509504}
   GameResultsSubcomponent: {fileID: 1639756243}
+  WaitingScreen: {fileID: 0}
 --- !u!1 &2024197033
 GameObject:
   m_ObjectHideFlags: 0

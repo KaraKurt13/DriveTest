@@ -18,12 +18,16 @@ namespace Assets.Scripts.Main
         {
             _garageCamera.enabled = true;
             _carCamera.enabled = false;
+            _carCamera.GetComponent<AudioListener>().enabled = false;
+            _garageCamera.GetComponent<AudioListener>().enabled = true;
         }
 
         public void SwitchToCarCamera()
         {
             _carCamera.enabled = true;
             _garageCamera.enabled = false;
+            _carCamera.GetComponent<AudioListener>().enabled = true;
+            _garageCamera.GetComponent<AudioListener>().enabled = false;
         }
     }
 }

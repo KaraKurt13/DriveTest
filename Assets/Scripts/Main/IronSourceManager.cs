@@ -1,18 +1,56 @@
+using Assets.Scripts.SaveData;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class IronSourceManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static IronSourceManager Instance { get; private set; }
+
+    [SerializeField]
+    private string _appKey = "208e31995";
+
+    private void Awake()
     {
-        
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        IronSource.Agent.init("208e31995", IronSourceAdUnits.REWARDED_VIDEO);
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool IsRewardVideoReady()
     {
-        
+        return IronSource.Agent.isRewardedVideoAvailable();
+    }
+
+    private int _doubleRewardAmount;
+
+    public void DoubleReward(int amount)
+    {
+        if (IronSource.Agent.isRewardedVideoAvailable())
+        {
+            _doubleRewardAmount = amount;
+            IronSource.Agent.showRewardedVideo("DoubleReward");
+            IronSourceRewardedVideoEvents.onAdRewardedEvent += OnDoubleRewardVideoComplete;
+        }
+        else
+        {
+            Debug.Log("Ad is not available.");
+        }
+    }
+
+    public void OnDoubleRewardVideoComplete(IronSourcePlacement placement, IronSourceAdInfo info)
+    {
+        SaveSystem.PlayerData.Cash += _doubleRewardAmount;
+        SaveSystem.SavePlayerData();
+        _doubleRewardAmount = 0;
+        IronSourceRewardedVideoEvents.onAdRewardedEvent -= OnDoubleRewardVideoComplete;
     }
 }

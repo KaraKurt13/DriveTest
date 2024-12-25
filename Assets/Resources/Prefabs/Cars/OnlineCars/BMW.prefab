@@ -660,8 +660,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Transform: {fileID: 3520789808673178500}
   Rigidbody: {fileID: 7137868977235220205}
-  PhotonView: {fileID: 725152425765633152, guid: d209be28ba6c86a438d2f6e6539846df,
-    type: 3}
+  PhotonView: {fileID: 0}
   IsControllable: 0
   _frontLeftWheelCollider: {fileID: 8814483246641972004}
   _frontRightWheelCollider: {fileID: 6731297436801734696}
@@ -1245,7 +1244,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7359873511678669484}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &940873451023367294
 MonoBehaviour:
   m_ObjectHideFlags: 0
