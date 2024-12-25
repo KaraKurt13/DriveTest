@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ namespace Assets.Scripts.Car
         public Transform Transform;
 
         public Rigidbody Rigidbody;
+
+        public PhotonView PhotonView;
 
         public bool IsControllable = false;
 
@@ -31,7 +34,6 @@ namespace Assets.Scripts.Car
         {
             GetInput();
             UpdateWheels();
-            Debug.Log(IsDrifting);
         }
 
         private void FixedUpdate()

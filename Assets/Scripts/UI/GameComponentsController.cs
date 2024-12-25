@@ -11,5 +11,7 @@ namespace Assets.Scripts.UI
         public GarageComponent GarageComponent;
 
         public GameResultsSubcomponent GameResultsSubcomponent;
+
+        public WaitingScreenSubcomponent WaitingScreen;
     }
 }

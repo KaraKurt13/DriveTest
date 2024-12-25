@@ -2,6 +2,7 @@ using Assets.Scripts.Car;
 using Assets.Scripts.Helpers;
 using Assets.Scripts.Main;
 using Assets.Scripts.SaveData;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,9 +27,15 @@ public class GarageManager : MonoBehaviour
 
     public void Finish()
     {
-        Engine.InitializePlayerCar(_playerCar);
+        if (GameEngine.IsMultiplayerGame)
+        {
+            Engine.InitializeOnlinePlayer();
+            Destroy(_playerCar);
+        }
+        else
+            Engine.InitializePlayer(_playerCar);
+
         Engine.SwitchToStreet();
-        Engine.StartGame();
     }
 
     public void InitializePlayer()
@@ -42,12 +49,20 @@ public class GarageManager : MonoBehaviour
     {
         if (_playerCar != null)
         {
-            Destroy(_playerCar);
+            //if (GameEngine.IsMultiplayerGame)
+              //  PhotonNetwork.Destroy(_playerCar);
+            //else
+                Destroy(_playerCar);
             _visualizer = null;
         }
 
-        var carPrefab = DataLibrary.Instance.CarsData[type].Prefab;
+        var carData = DataLibrary.Instance.CarsData[type];
+        var carPrefab = carData.Prefab;
         _playerCar = Instantiate(carPrefab, _garageSpawnPoint.position, Quaternion.identity);
+        //_playerCar = GameEngine.IsMultiplayerGame ?
+        //   PhotonNetwork.Instantiate($"Prefabs/Cars/{carData.Name}", _garageSpawnPoint.position, Quaternion.identity) :
+
+
         _visualizer = _playerCar.GetComponent<CarVisualizer>();
         _playerCarData.Car = type;
         ChangePaint(_playerCarData.Paint);

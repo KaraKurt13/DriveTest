@@ -23,6 +23,9 @@ namespace Assets.Scripts.UI
             _playerStats = playerStatsTracker;
             _speedBuilder = new();
             _timeLeftBuilder = new();
+            _score.text = "0";
+            _speed.text = "0";
+            _timeLeft.text = "0";
         }
 
         private void Update()

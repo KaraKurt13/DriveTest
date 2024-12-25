@@ -14,7 +14,7 @@ namespace Assets.Scripts.Main
             PhotonNetwork.CurrentRoom.IsOpen = false;
             try
             {
-                PhotonNetwork.LoadLevel(1);
+                PhotonNetwork.LoadLevel("MultiplayerScene");
             }
             catch (Exception ex)
             {
@@ -30,7 +30,7 @@ namespace Assets.Scripts.Main
 
         public void LoadMainMenu()
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }

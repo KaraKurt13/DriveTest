@@ -15,5 +15,10 @@ namespace Assets.Scripts.Main
             DataLibrary.Instance.InitData();
             SaveSystem.LoadPlayerData();
         }
+
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
     }
 }

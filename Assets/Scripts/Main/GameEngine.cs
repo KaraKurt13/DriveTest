@@ -3,17 +3,20 @@ using Assets.Scripts.Helpers;
 using Assets.Scripts.SaveData;
 using Assets.Scripts.UI;
 using Photon.Pun;
-using System.Collections;
+using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
+using ExitGames.Client.Photon;
 
 namespace Assets.Scripts.Main
 {
     public class GameEngine : MonoBehaviour
     {
         public bool IsGameRunning { get; private set; } = false;
+
+        public static bool IsMultiplayerGame => PhotonNetwork.IsConnected && PhotonNetwork.InRoom;
 
         public int TicksTillEnd { get; private set; }
 
@@ -34,6 +37,19 @@ namespace Assets.Scripts.Main
                 GameTick();
         }
 
+        private void Update()
+        {
+            if (IsWaitingForPlayers)
+            {
+                if (AllPlayersReady())
+                {
+                    ComponentsController.WaitingScreen.Hide();
+                    StartGame();
+                }
+            }
+
+        }
+
         private void GameTick()
         {
             TicksTillEnd--;
@@ -51,26 +67,29 @@ namespace Assets.Scripts.Main
 
         public void SwitchToStreet()
         {
-            PlayerCar.transform.position = _streetSpawnPoint.position;
+            PlayerCar.transform.position = GetSpawnPoint();
             CameraController.SwitchToCarCamera();
             ComponentsController.GarageComponent.Hide();
             ComponentsController.PlayerStatsComponent.Draw();
         }
 
-        public void InitializePlayerCar(GameObject playerCar)
+        public void InitializePlayer(GameObject playerCar)
         {
             PlayerCar = playerCar;
             var playerStatsTracker = PlayerCar.GetComponent<StatsTracker>();
             var playerCamera = PlayerCar.GetComponent<CarVisualizer>().CarCamera;
-            PlayerCar.GetComponent<CarController>().IsControllable = true;
             CameraController.SetCarCamera(playerCamera);
             ComponentsController.PlayerStatsComponent.Init(playerStatsTracker);
+            StartGame();
         }
 
         public void StartGame()
         {
+            Debug.Log("start game");
+            PlayerCar.GetComponent<CarController>().IsControllable = true;
             TicksTillEnd = TimeHelper.SecondsToTicks(10f);
             IsGameRunning = true;
+            IsWaitingForPlayers = false;
         }
 
         public void EndGame()
@@ -88,5 +107,66 @@ namespace Assets.Scripts.Main
         {
             SceneController.LoadMainMenu();
         }
+
+        public Vector3 GetSpawnPoint()
+        {
+            var position = _streetSpawnPoint.position;
+
+            if (IsMultiplayerGame)
+                position.z = PhotonNetwork.LocalPlayer.ActorNumber * 5f;
+
+            return position;
+        }
+
+        #region Online
+        public bool IsWaitingForPlayers = true;
+
+        public void InitializeOnlinePlayer()
+        {
+            var playerSettings = SaveSystem.PlayerData.CarData;
+            var carName = DataLibrary.Instance.CarsData[playerSettings.Car].Name;
+            PlayerCar = PhotonNetwork.Instantiate($"Prefabs/Cars/OnlineCars/{carName}", GetSpawnPoint(), Quaternion.identity);
+            var playerStatsTracker = PlayerCar.GetComponent<StatsTracker>();
+            var playerCamera = PlayerCar.GetComponent<CarVisualizer>().CarCamera;
+
+            CameraController.SetCarCamera(playerCamera);
+            ComponentsController.PlayerStatsComponent.Init(playerStatsTracker);
+            SetPlayerReady();
+            ComponentsController.WaitingScreen.Draw();
+        }
+
+        [PunRPC]
+        private void SetPlayerReady()
+        {
+            Hashtable props = new Hashtable
+            {
+                { "IsReady", true }
+            };
+            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+        }
+
+        public static bool AllPlayersReady()
+        {
+            if (GetReadyPlayersAmount() == PhotonNetwork.CurrentRoom.PlayerCount)
+                return true;
+            else
+                return false;
+        }
+
+        public static int GetReadyPlayersAmount()
+        {
+            int readyCount = 0;
+
+            foreach (var player in PhotonNetwork.PlayerList)
+            {
+                if (player.CustomProperties.TryGetValue("IsReady", out var isReady) && (bool)isReady)
+                {
+                    readyCount++;
+                }
+            }
+            Debug.Log(readyCount);
+            return readyCount;
+        }
+        #endregion Online
     }
 }
