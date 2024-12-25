@@ -91,8 +91,7 @@ namespace Assets.Scripts.UI
 
         private void RedrawCarPaints()
         {
-            foreach (Transform child in _carPaintsContainer)
-                Destroy(child.gameObject);
+            ClearContainer(_carPaintsContainer);
 
             var paintsData = DataLibrary.Instance.CarPaintsData;
 
@@ -124,12 +123,45 @@ namespace Assets.Scripts.UI
 
         private void RedrawCars()
         {
+            ClearContainer(_carsContainer);
+            
+            var carsData = DataLibrary.Instance.CarsData;
+            Debug.Log(carsData.Count);
+            foreach (var car in carsData)
+            {
+                var shopItem = Instantiate(_shopItemPrefab, _carsContainer).GetComponent<ShopItemSubcomponent>();
+                var data = car.Value;
+                var type = car.Key;
 
+                shopItem.Name.text = data.Name;
+                shopItem.Price.text = $"{data.Price}$";
+                shopItem.Icon.sprite = data.Icon;
+                shopItem.BuyButton.onClick.AddListener(() =>
+                {
+                    _shopManager.BuyCar(data);
+                    RedrawCarPaints();
+                });
+                if (_playerSaveData.UnlockedCars.Contains(type))
+                {
+                    shopItem.UpdatePurchasedStatus(true);
+                }
+                else
+                {
+                    var canBuy = data.Price <= _playerSaveData.Cash;
+                    shopItem.UpdateAvailabilityStatus(canBuy);
+                }
+            }
         }
 
         private void RedrawCarParts()
         {
 
+        }
+
+        private void ClearContainer(Transform container)
+        {
+            foreach (Transform child in container)
+                Destroy(child.gameObject);
         }
 
         private void OnDestroy()

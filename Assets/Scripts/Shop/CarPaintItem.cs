@@ -15,7 +15,7 @@ namespace Assets.Scripts.Shop
 
         public override ItemTypeEnum Type => ItemTypeEnum.CAR_PAINT;
 
-        public override void Apply()
+        public override void UnlockItem()
         {
             SaveSystem.PlayerData.UnlockedPaints.Add(PaintType);
             SaveSystem.SavePlayerData();

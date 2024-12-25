@@ -12,7 +12,9 @@ namespace Assets.Scripts.Shop
 
         public CarTypeEnum CarType;
 
-        public override void Apply()
+        public GameObject Prefab;
+
+        public override void UnlockItem()
         {
         }
     }

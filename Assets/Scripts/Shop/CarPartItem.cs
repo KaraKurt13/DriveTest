@@ -9,7 +9,7 @@ namespace Assets.Scripts.Shop
     {
         public override ItemTypeEnum Type => ItemTypeEnum.CAR_PART;
 
-        public override void Apply()
+        public override void UnlockItem()
         {
         }
     }

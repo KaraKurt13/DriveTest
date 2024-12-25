@@ -14,6 +14,6 @@ namespace Assets.Scripts.Shop
 
         public abstract ItemTypeEnum Type { get; }
 
-        public abstract void Apply();
+        public abstract void UnlockItem();
     }
 }

@@ -5184,10 +5184,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _carsContainer: {fileID: 481068822}
-  _carDetailsContainer: {fileID: 1851750620}
+  _carPartsContainer: {fileID: 0}
   _carPaintsContainer: {fileID: 1196744685}
   _cars: {fileID: 1224532546}
-  _carDetails: {fileID: 1784004503}
+  _carParts: {fileID: 1784004503}
   _carPaints: {fileID: 979653630}
   _shopItemPrefab: {fileID: 1239251127047273506, guid: ae7812b02418eaa4daf1252f5af3dd4f,
     type: 3}
@@ -6336,7 +6336,7 @@ GameObject:
   - component: {fileID: 1784004506}
   - component: {fileID: 1784004505}
   m_Layer: 5
-  m_Name: Details
+  m_Name: Parts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
