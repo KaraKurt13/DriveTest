@@ -2,6 +2,7 @@ using Assets.Scripts.Car;
 using Assets.Scripts.Helpers;
 using Assets.Scripts.SaveData;
 using Assets.Scripts.UI;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

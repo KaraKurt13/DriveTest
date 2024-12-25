@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,10 +11,16 @@ namespace Assets.Scripts.Main
     {
         public void LoadOnlineGame()
         {
-            if (PhotonNetwork.IsMasterClient)
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            try
             {
                 PhotonNetwork.LoadLevel(1);
             }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
+            }
+
         }
 
         public void LoadSingleplayerGame()

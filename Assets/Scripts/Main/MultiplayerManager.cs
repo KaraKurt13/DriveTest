@@ -37,6 +37,7 @@ namespace Assets.Scripts.Main
                 Debug.Log("Connecting to Photon...");
                 PhotonNetwork.ConnectUsingSettings();
             }
+            PhotonNetwork.AutomaticallySyncScene = true;
         }
 
         public override void OnConnectedToMaster()

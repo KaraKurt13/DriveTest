@@ -5,13 +5,17 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.UI
 {
     public class JoinedRoomSubcomponent : MonoBehaviourPunCallbacks
     {
         [SerializeField]
-        private TextMeshProUGUI _roomName; 
+        private TextMeshProUGUI _roomName;
+
+        [SerializeField]
+        private Button _startButton;
 
         [SerializeField]
         private Transform _playersContainer;
@@ -23,7 +27,10 @@ namespace Assets.Scripts.UI
         {
             var room = PhotonNetwork.CurrentRoom;
             _roomName.text = room.Name;
+            _startButton.enabled = PhotonNetwork.IsMasterClient;
+
             UpdatePlayersList();
+            
             gameObject.SetActive(true);
         }
 
