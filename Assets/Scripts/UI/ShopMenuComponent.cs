@@ -126,7 +126,7 @@ namespace Assets.Scripts.UI
             ClearContainer(_carsContainer);
             
             var carsData = DataLibrary.Instance.CarsData;
-            Debug.Log(carsData.Count);
+
             foreach (var car in carsData)
             {
                 var shopItem = Instantiate(_shopItemPrefab, _carsContainer).GetComponent<ShopItemSubcomponent>();

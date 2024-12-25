@@ -9,6 +9,11 @@ namespace Assets.Scripts.Main
         [SerializeField]
         private Camera _carCamera, _garageCamera;
 
+        public void SetCarCamera(Camera carCamera)
+        {
+            _carCamera = carCamera;
+        }
+
         public void SwitchToGarageCamera()
         {
             _garageCamera.enabled = true;

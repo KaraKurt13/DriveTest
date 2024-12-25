@@ -18,8 +18,9 @@ namespace Assets.Scripts.UI
         [SerializeField]
         private StatsTracker _playerStats;
 
-        private void Start()
+        public void Init(StatsTracker playerStatsTracker)
         {
+            _playerStats = playerStatsTracker;
             _speedBuilder = new();
             _timeLeftBuilder = new();
         }

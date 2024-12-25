@@ -9,9 +9,12 @@ namespace Assets.Scripts.SaveData
     {
         public CarPaintTypeEnum Paint;
 
+        public CarTypeEnum Car;
+
         public CarSaveData()
         {
             Paint = CarPaintTypeEnum.Yellow;
+            Car = CarTypeEnum.BWM;
         }
     }
 }

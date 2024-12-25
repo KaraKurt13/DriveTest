@@ -6,12 +6,14 @@ namespace Assets.Scripts.Car
 {
     public class CarVisualizer : MonoBehaviour
     {
+        public Camera CarCamera;
+
         [SerializeField]
         private MeshRenderer _meshRenderer;
         
         public void ApplyPaint(Material material)
         {
-            _meshRenderer.materials[0] = material;
+            _meshRenderer.material = material;
         }
     }
 }

@@ -22,13 +22,10 @@ namespace Assets.Scripts.Main
 
         public GameComponentsController ComponentsController;
 
+        public SceneController SceneController;
+
         [SerializeField]
         private Transform _streetSpawnPoint, _garageSpawnPoint;
-
-        private void Start()
-        {
-            StartGame();
-        }
 
         private void FixedUpdate()
         {
@@ -59,10 +56,19 @@ namespace Assets.Scripts.Main
             ComponentsController.PlayerStatsComponent.Draw();
         }
 
+        public void InitializePlayerCar(GameObject playerCar)
+        {
+            PlayerCar = playerCar;
+            var playerStatsTracker = PlayerCar.GetComponent<StatsTracker>();
+            var playerCamera = PlayerCar.GetComponent<CarVisualizer>().CarCamera;
+            PlayerCar.GetComponent<CarController>().IsControllable = true;
+            CameraController.SetCarCamera(playerCamera);
+            ComponentsController.PlayerStatsComponent.Init(playerStatsTracker);
+        }
+
         public void StartGame()
         {
             TicksTillEnd = TimeHelper.SecondsToTicks(10f);
-            PlayerCar.GetComponent<CarController>().IsControllable = true; // temp
             IsGameRunning = true;
         }
 
@@ -79,7 +85,7 @@ namespace Assets.Scripts.Main
 
         public void ReturnToMenu()
         {
-            SceneController.Instance.LoadMainMenu();
+            SceneController.LoadMainMenu();
         }
     }
 }
