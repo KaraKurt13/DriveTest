@@ -38,7 +38,7 @@ namespace Assets.Scripts.Main
 
         public void LoadMainMenu()
         {
-
+            SceneManager.LoadScene(0);
         }
     }
 }

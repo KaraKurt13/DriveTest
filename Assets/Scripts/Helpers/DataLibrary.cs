@@ -23,23 +23,23 @@ namespace Assets.Scripts.Helpers
             }
         }
 
-        public Dictionary<CarTypeEnum, CarItem> CarData;
+        public Dictionary<CarTypeEnum, CarItem> CarsData;
 
-        public Dictionary<CarPaintTypeEnum, CarPaintItem> CarPaintData;
+        public Dictionary<CarPaintTypeEnum, CarPaintItem> CarPaintsData;
 
         private DataLibrary() { }
 
         public void InitData()
         {
             var paintsData = Resources.LoadAll<CarPaintItem>("ItemsData/Paints");
-            CarPaintData = new();
+            CarPaintsData = new();
             foreach (var paint in paintsData)
-                CarPaintData.Add(paint.PaintType, paint);
+                CarPaintsData.Add(paint.PaintType, paint);
 
             var carsData = Resources.LoadAll<CarItem>("ItemsData/Cars");
-            CarData = new();
+            CarsData = new();
             foreach (var car in carsData)
-                CarData.Add(car.CarType, car);
+                CarsData.Add(car.CarType, car);
         }
     }
 }

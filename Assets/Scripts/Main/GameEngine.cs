@@ -1,10 +1,12 @@
 using Assets.Scripts.Car;
 using Assets.Scripts.Helpers;
+using Assets.Scripts.SaveData;
 using Assets.Scripts.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace Assets.Scripts.Main
 {
@@ -68,7 +70,11 @@ namespace Assets.Scripts.Main
         {
             PlayerCar.GetComponent<CarController>().IsControllable = false; // temp
             IsGameRunning = false;
-            ComponentsController.GameResultsSubcomponent.Draw(PlayerCar.GetComponent<StatsTracker>().Score); // temp
+            var score = PlayerCar.GetComponent<StatsTracker>().Score; // temp
+            var earnedCash = Mathf.CeilToInt(score * Constants.ScoreToMoneyMultiplayer);
+            ComponentsController.GameResultsSubcomponent.Draw(score, earnedCash);
+            SaveSystem.PlayerData.Cash += earnedCash;
+            SaveSystem.SavePlayerData();
         }
 
         public void ReturnToMenu()

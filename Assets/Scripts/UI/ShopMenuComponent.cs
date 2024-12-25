@@ -11,10 +11,10 @@ namespace Assets.Scripts.UI
     public class ShopMenuComponent : ComponentBase
     {
         [SerializeField]
-        private Transform _carsContainer, _carDetailsContainer, _carPaintsContainer;
+        private Transform _carsContainer, _carPartsContainer, _carPaintsContainer;
 
         [SerializeField]
-        private GameObject _cars, _carDetails, _carPaints;
+        private GameObject _cars, _carParts, _carPaints;
 
         [SerializeField]
         private GameObject _shopItemPrefab;
@@ -45,13 +45,12 @@ namespace Assets.Scripts.UI
         public void Initialize()
         {
             _playerSaveData = SaveSystem.PlayerData;
-            Debug.Log(_playerSaveData);
         }
 
-        public void DrawCarDetails()
+        public void DrawCarParts()
         {
-            _carDetails.SetActive(true);
-            RedrawCarDetails();
+            _carParts.SetActive(true);
+            RedrawCarParts();
         }
 
         public void DrawCarPaints()
@@ -73,8 +72,8 @@ namespace Assets.Scripts.UI
                 RedrawCars();
             if (_carPaints.activeSelf)
                 RedrawCarPaints();
-            if (_carDetails.activeSelf)
-                RedrawCarDetails();
+            if (_carParts.activeSelf)
+                RedrawCarParts();
         }
 
         public void UpdateCurrency()
@@ -86,7 +85,7 @@ namespace Assets.Scripts.UI
         public void HideAllContainers()
         {
             _cars.SetActive(false);
-            _carDetails.SetActive(false);
+            _carParts.SetActive(false);
             _carPaints.SetActive(false);
         }
 
@@ -95,7 +94,7 @@ namespace Assets.Scripts.UI
             foreach (Transform child in _carPaintsContainer)
                 Destroy(child.gameObject);
 
-            var paintsData = DataLibrary.Instance.CarPaintData;
+            var paintsData = DataLibrary.Instance.CarPaintsData;
 
             foreach (var paint in paintsData)
             {
@@ -128,7 +127,7 @@ namespace Assets.Scripts.UI
 
         }
 
-        private void RedrawCarDetails()
+        private void RedrawCarParts()
         {
 
         }

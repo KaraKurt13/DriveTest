@@ -9,6 +9,6 @@ namespace Assets.Scripts.Shop
         NONE,
         CAR_PAINT,
         CAR_ITEM,
-        CAR_DETAIL
+        CAR_PART
     }
 }

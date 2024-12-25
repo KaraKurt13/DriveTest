@@ -9,7 +9,7 @@ namespace Assets.Scripts.Car
         [SerializeField]
         private MeshRenderer _meshRenderer;
         
-        public void ChangeMaterial(Material material)
+        public void ApplyPaint(Material material)
         {
             _meshRenderer.materials[0] = material;
         }

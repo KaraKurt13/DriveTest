@@ -11,11 +11,10 @@ namespace Assets.Scripts.UI
         [SerializeField]
         private TextMeshProUGUI _playerScore, _earnedMoney;
 
-        public void Draw(int score)
+        public void Draw(int score, int earnedCash)
         {
-            var earnedMoney = Mathf.CeilToInt(score * Constants.ScoreToMoneyMultiplayer);
             _playerScore.text = $"Your score: {score}!";
-            _earnedMoney.text = $"Earned money: {earnedMoney}$";
+            _earnedMoney.text = $"Earned money: {earnedCash}$";
             gameObject.SetActive(true);
         }
     }
