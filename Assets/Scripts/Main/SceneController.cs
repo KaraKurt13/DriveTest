@@ -25,7 +25,7 @@ namespace Assets.Scripts.Main
 
         public void LoadSingleplayerGame()
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene("SingleplayerScene");
         }
 
         public void LoadMainMenu()

@@ -16,7 +16,7 @@ namespace Assets.Scripts.Main
     {
         public bool IsGameRunning { get; private set; } = false;
 
-        public static bool IsMultiplayerGame => PhotonNetwork.IsConnected && PhotonNetwork.InRoom;
+        public static bool IsMultiplayerGame = false;
 
         public int TicksTillEnd { get; private set; }
 
@@ -31,6 +31,11 @@ namespace Assets.Scripts.Main
         [SerializeField]
         private Transform _streetSpawnPoint, _garageSpawnPoint;
 
+        private void Awake()
+        {
+            IsMultiplayerGame = PhotonNetwork.IsConnected && PhotonNetwork.InRoom;
+        }
+
         private void FixedUpdate()
         {
             if (IsGameRunning)
@@ -39,7 +44,7 @@ namespace Assets.Scripts.Main
 
         private void Update()
         {
-            if (IsWaitingForPlayers)
+            if (IsMultiplayerGame && IsWaitingForPlayers)
             {
                 if (AllPlayersReady())
                 {
