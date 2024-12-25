@@ -104,7 +104,6 @@ namespace Assets.Scripts.Car
             float lateralVelocity = Vector3.Dot(transform.right, velocity);
 
             IsDrifting = Mathf.Abs(lateralVelocity) > 1f && _verticalInput != 0;
-            Debug.Log(IsDrifting);
         }
     }
 }

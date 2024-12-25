@@ -85,7 +85,6 @@ namespace Assets.Scripts.Main
 
         public void StartGame()
         {
-            Debug.Log("start game");
             PlayerCar.GetComponent<CarController>().IsControllable = true;
             TicksTillEnd = TimeHelper.SecondsToTicks(10f);
             IsGameRunning = true;
@@ -127,15 +126,16 @@ namespace Assets.Scripts.Main
             var carName = DataLibrary.Instance.CarsData[playerSettings.Car].Name;
             PlayerCar = PhotonNetwork.Instantiate($"Prefabs/Cars/OnlineCars/{carName}", GetSpawnPoint(), Quaternion.identity);
             var playerStatsTracker = PlayerCar.GetComponent<StatsTracker>();
-            var playerCamera = PlayerCar.GetComponent<CarVisualizer>().CarCamera;
+            var carVisualizer = PlayerCar.GetComponent<CarVisualizer>();
+            var photonView = PlayerCar.GetComponent<PhotonView>();
 
-            CameraController.SetCarCamera(playerCamera);
+            photonView.RPC("ApplyPaintPhoton", RpcTarget.All, playerSettings.Paint);
+            CameraController.SetCarCamera(carVisualizer.CarCamera);
             ComponentsController.PlayerStatsComponent.Init(playerStatsTracker);
             SetPlayerReady();
             ComponentsController.WaitingScreen.Draw();
         }
 
-        [PunRPC]
         private void SetPlayerReady()
         {
             Hashtable props = new Hashtable
