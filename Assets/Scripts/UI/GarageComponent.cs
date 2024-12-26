@@ -32,6 +32,7 @@ namespace Assets.Scripts.UI
         {
             InitPlayerItems();
             _playButton.onClick.AddListener(() => SaveSystem.SavePlayerData());
+            DrawCars();
         }
 
         public void DrawCars()
