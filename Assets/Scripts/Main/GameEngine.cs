@@ -91,7 +91,7 @@ namespace Assets.Scripts.Main
         public void StartGame()
         {
             PlayerCar.GetComponent<CarController>().IsControllable = true;
-            TicksTillEnd = TimeHelper.SecondsToTicks(10f);
+            TicksTillEnd = TimeHelper.SecondsToTicks(120f);
             IsGameRunning = true;
             IsWaitingForPlayers = false;
         }

@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Assets.Scripts.Car
 {
@@ -29,6 +30,9 @@ namespace Assets.Scripts.Car
         public bool IsDrifting { get; private set; }
 
         private const float _maxTorque = 1000, _maxSteerAngle = 30f, _brakeForce = 5000f, _wheelsRotationStep = 10f;
+
+        private Vector3 _forwardDirection => transform.forward.normalized;
+        private Vector3 _velocityDirection => Rigidbody.velocity.normalized;
 
         private void Update()
         {
@@ -63,19 +67,31 @@ namespace Assets.Scripts.Car
 
         private void HandleSteering()
         {
-            _targetSteerAngle = _horizontalInput * _maxSteerAngle;
-            _currentSteerAngle = Mathf.LerpAngle(_currentSteerAngle, _targetSteerAngle, Time.deltaTime * _wheelsRotationStep);
+            if (IsDrifting && _horizontalInput == 0)
+            {
+                AutoSteer();
+            }
+            else
+            {
+                _targetSteerAngle = _horizontalInput * _maxSteerAngle;
+                _currentSteerAngle = Mathf.LerpAngle(_currentSteerAngle, _targetSteerAngle, Time.deltaTime * _wheelsRotationStep);
+            }
 
             _frontLeftWheelCollider.steerAngle = _currentSteerAngle;
             _frontRightWheelCollider.steerAngle = _currentSteerAngle;
         }
 
+        private void AutoSteer()
+        {
+            Vector3 cross = Vector3.Cross(_forwardDirection, _velocityDirection);
+            float autoSteerDirection = cross.y > 0 ? -1 : 1;
+            _targetSteerAngle = autoSteerDirection * _maxSteerAngle;
+            _currentSteerAngle = Mathf.LerpAngle(_currentSteerAngle, _targetSteerAngle, Time.deltaTime * _wheelsRotationStep);
+        }
+
         private void HandleBrake()
         {
             var brakeForce = _brakeInput ? _brakeForce : 0f;
-
-            //_frontLeftWheelCollider.brakeTorque = brakeForce;
-            //_frontRightWheelCollider.brakeTorque = brakeForce;
             _rearLeftWheelCollider.brakeTorque = brakeForce;
             _rearRightWheelCollider.brakeTorque = brakeForce;
         }
@@ -97,13 +113,11 @@ namespace Assets.Scripts.Car
             wheelTransform.position = position;
         }
 
+        private float _driftThreshold = 10f;
         private void HandleDrifting()
         {
-            Vector3 velocity = Rigidbody.velocity;
-
-            float lateralVelocity = Vector3.Dot(transform.right, velocity);
-
-            IsDrifting = Mathf.Abs(lateralVelocity) > 1f && _verticalInput != 0;
+            float driftAngle = Vector3.Angle(_velocityDirection, _forwardDirection);
+            IsDrifting =  driftAngle > _driftThreshold && Rigidbody.velocity.magnitude > 1f;
         }
     }
 }
