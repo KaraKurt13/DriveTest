@@ -27,7 +27,7 @@ namespace Assets.Scripts.UI
         {
             var room = PhotonNetwork.CurrentRoom;
             _roomName.text = room.Name;
-            _startButton.enabled = PhotonNetwork.IsMasterClient;
+            _startButton.interactable = PhotonNetwork.IsMasterClient;
 
             UpdatePlayersList();
             

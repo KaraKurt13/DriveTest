@@ -107,7 +107,6 @@ namespace Assets.Scripts.UI
                 shopItem.BuyButton.onClick.AddListener(() =>
                 {
                     _shopManager.BuyPaint(data);
-                    RedrawCarPaints();
                 });
                 if (_playerSaveData.UnlockedPaints.Contains(type))
                 {
@@ -139,7 +138,6 @@ namespace Assets.Scripts.UI
                 shopItem.BuyButton.onClick.AddListener(() =>
                 {
                     _shopManager.BuyCar(data);
-                    RedrawCarPaints();
                 });
                 if (_playerSaveData.UnlockedCars.Contains(type))
                 {
@@ -155,7 +153,33 @@ namespace Assets.Scripts.UI
 
         private void RedrawCarParts()
         {
+            ClearContainer(_carPartsContainer);
 
+            var partsData = DataLibrary.Instance.CarPartsData;
+
+            foreach (var part in partsData)
+            {
+                var shopItem = Instantiate(_shopItemPrefab, _carPartsContainer).GetComponent<ShopItemSubcomponent>();
+                var data = part.Value;
+                var type = part.Key;
+
+                shopItem.Name.text = data.Name;
+                shopItem.Price.text = $"{data.Price}$";
+                shopItem.Icon.sprite = data.Icon;
+                shopItem.BuyButton.onClick.AddListener(() =>
+                {
+                    _shopManager.BuyCarDetail(data);
+                });
+                if (_playerSaveData.UnlockedPart.Contains(type))
+                {
+                    shopItem.UpdatePurchasedStatus(true);
+                }
+                else
+                {
+                    var canBuy = data.Price <= _playerSaveData.Cash;
+                    shopItem.UpdateAvailabilityStatus(canBuy);
+                }
+            }
         }
 
         private void ClearContainer(Transform container)

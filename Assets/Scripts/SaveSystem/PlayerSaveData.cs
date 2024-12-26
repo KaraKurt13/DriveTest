@@ -48,6 +48,8 @@ namespace Assets.Scripts.SaveData
 
         public HashSet<CarTypeEnum> UnlockedCars;
 
+        public HashSet<CarPartTypeEnum> UnlockedPart;
+
         public PlayerSaveData()
         {
             Cash = 100;
@@ -55,6 +57,7 @@ namespace Assets.Scripts.SaveData
             CarData = new();
             UnlockedPaints = new() { CarPaintTypeEnum.Yellow };
             UnlockedCars = new() { CarTypeEnum.BWM };
+            UnlockedPart = new();
         }
     }
 }

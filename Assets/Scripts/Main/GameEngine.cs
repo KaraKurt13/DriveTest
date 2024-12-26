@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 using ExitGames.Client.Photon;
+using System;
 
 namespace Assets.Scripts.Main
 {
@@ -136,6 +137,13 @@ namespace Assets.Scripts.Main
             var playerStatsTracker = PlayerCar.GetComponent<StatsTracker>();
             var carVisualizer = PlayerCar.GetComponent<CarVisualizer>();
             var photonView = PlayerCar.GetComponent<PhotonView>();
+            foreach (PartPlacement placement in Enum.GetValues(typeof(PartPlacement)))
+            {
+                var part = playerSettings.GetPart(placement);
+                if (part != CarPartTypeEnum.None)
+                    photonView.RPC("ApplyPartPhoton",RpcTarget.All, part, placement);
+            }
+
 
             photonView.RPC("ApplyPaintPhoton", RpcTarget.All, playerSettings.Paint);
             CameraController.SetCarCamera(carVisualizer.CarCamera);
@@ -194,7 +202,6 @@ namespace Assets.Scripts.Main
                     readyCount++;
                 }
             }
-            Debug.Log(readyCount);
             return readyCount;
         }
         #endregion Online

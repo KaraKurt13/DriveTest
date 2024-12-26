@@ -6871,7 +6871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _carsContainer: {fileID: 481068822}
-  _carPartsContainer: {fileID: 0}
+  _carPartsContainer: {fileID: 1851750620}
   _carPaintsContainer: {fileID: 1196744685}
   _cars: {fileID: 1224532546}
   _carParts: {fileID: 1784004503}
@@ -9502,7 +9502,7 @@ PrefabInstance:
     - target: {fileID: 3556682664761189694, guid: fb632df2355fd6f459aa11750da6fbdd,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: DrawCarDetails
+      value: DrawCarParts
       objectReference: {fileID: 0}
     - target: {fileID: 3556682664761189694, guid: fb632df2355fd6f459aa11750da6fbdd,
         type: 3}
@@ -9632,7 +9632,7 @@ PrefabInstance:
     - target: {fileID: 8016292493170915927, guid: fb632df2355fd6f459aa11750da6fbdd,
         type: 3}
       propertyPath: m_text
-      value: Details
+      value: Parts
       objectReference: {fileID: 0}
     - target: {fileID: 8016292493170915927, guid: fb632df2355fd6f459aa11750da6fbdd,
         type: 3}

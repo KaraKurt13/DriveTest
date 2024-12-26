@@ -1,3 +1,4 @@
+using Assets.Scripts.Car;
 using Assets.Scripts.SaveData;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,8 +26,12 @@ namespace Assets.Scripts.Shop
             SaveSystem.SavePlayerData();
         }
 
-        public void BuyCarDetail()
+        public void BuyCarDetail(CarPartItem part)
         {
+            var price = part.Price;
+            _playerData.UnlockedPart.Add(part.PartType);
+            _playerData.Cash -= price;
+            SaveSystem.SavePlayerData();
         }
 
         public void ExchangeGoldToCash()

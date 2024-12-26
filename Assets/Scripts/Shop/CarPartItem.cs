@@ -1,3 +1,4 @@
+using Assets.Scripts.Car;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,8 +10,10 @@ namespace Assets.Scripts.Shop
     {
         public override ItemTypeEnum Type => ItemTypeEnum.CAR_PART;
 
-        public override void UnlockItem()
-        {
-        }
+        public GameObject Prefab;
+
+        public CarPartTypeEnum PartType;
+
+        public PartPlacement Placement;
     }
 }

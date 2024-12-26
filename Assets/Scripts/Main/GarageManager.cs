@@ -43,25 +43,23 @@ public class GarageManager : MonoBehaviour
         _playerCarData = SaveSystem.PlayerData.CarData;
         ChangeCar(_playerCarData.Car);
         ChangePaint(_playerCarData.Paint);
+        if (_playerCarData.HoodPart != CarPartTypeEnum.None)
+            ChangePart(PartPlacement.Hood, _playerCarData.HoodPart);
+        if (_playerCarData.BootPart != CarPartTypeEnum.None)
+            ChangePart(PartPlacement.Boot, _playerCarData.BootPart);
     }
 
     public void ChangeCar(CarTypeEnum type)
     {
         if (_playerCar != null)
         {
-            //if (GameEngine.IsMultiplayerGame)
-              //  PhotonNetwork.Destroy(_playerCar);
-            //else
-                Destroy(_playerCar);
+            Destroy(_playerCar);
             _visualizer = null;
         }
 
         var carData = DataLibrary.Instance.CarsData[type];
         var carPrefab = carData.Prefab;
         _playerCar = Instantiate(carPrefab, _garageSpawnPoint.position, Quaternion.identity);
-        //_playerCar = GameEngine.IsMultiplayerGame ?
-        //   PhotonNetwork.Instantiate($"Prefabs/Cars/{carData.Name}", _garageSpawnPoint.position, Quaternion.identity) :
-
 
         _visualizer = _playerCar.GetComponent<CarVisualizer>();
         _playerCarData.Car = type;
@@ -73,5 +71,19 @@ public class GarageManager : MonoBehaviour
         var paintData = DataLibrary.Instance.CarPaintsData[type];
         _visualizer.ApplyPaint(paintData.Material);
         _playerCarData.Paint = type;
+    }
+
+    public void ChangePart(PartPlacement placement, CarPartTypeEnum type)
+    {
+        _visualizer.ApplyPart(type, placement);
+        switch (placement)
+        {
+            case PartPlacement.Boot:
+                _playerCarData.BootPart = type;
+                break;
+            case PartPlacement.Hood:
+                _playerCarData.HoodPart = type;
+                break;
+        }
     }
 }

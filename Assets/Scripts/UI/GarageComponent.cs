@@ -26,6 +26,7 @@ namespace Assets.Scripts.UI
 
         private Dictionary<CarTypeEnum, GarageItemSubcomponent> _carsComponents = new();
         private Dictionary<CarPaintTypeEnum, GarageItemSubcomponent> _carPaintsComponents = new();
+        private Dictionary<CarPartTypeEnum, GarageItemSubcomponent> _carPartsComponents = new();
 
         private void Awake()
         {
@@ -76,6 +77,7 @@ namespace Assets.Scripts.UI
             _playerCarData = playerData.CarData;
             var paints = DataLibrary.Instance.CarPaintsData;
             var cars = DataLibrary.Instance.CarsData;
+            var parts = DataLibrary.Instance.CarPartsData;
 
             foreach (var unlockedPaint in playerData.UnlockedPaints)
             {
@@ -107,6 +109,25 @@ namespace Assets.Scripts.UI
                     _garageManager.ChangeCar(unlockedCar);
                 });
                 _carsComponents.Add(unlockedCar, instance);
+            }
+
+            foreach (var unlockedPart in playerData.UnlockedPart)
+            {
+                var data = parts[unlockedPart];
+                var instance = Instantiate(_garageItemPrefab, _carParts.transform).GetComponent<GarageItemSubcomponent>();
+                instance.Name.text = data.Name.ToString();
+                instance.Image.sprite = data.Icon;
+                instance.SetSelection(_playerCarData.GetPart(data.Placement) == unlockedPart);
+                instance.Button.onClick.AddListener(() =>
+                {
+                    var currentPart = _playerCarData.GetPart(data.Placement);
+                    if (currentPart != CarPartTypeEnum.None)
+                        _carPartsComponents[currentPart].SetSelection(false);
+
+                    _carPartsComponents[unlockedPart].SetSelection(true);
+                    _garageManager.ChangePart(data.Placement, unlockedPart);
+                });
+                _carPartsComponents.Add(unlockedPart, instance);
             }
         }
     }

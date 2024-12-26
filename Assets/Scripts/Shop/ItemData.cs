@@ -13,7 +13,5 @@ namespace Assets.Scripts.Shop
         public Sprite Icon;
 
         public abstract ItemTypeEnum Type { get; }
-
-        public abstract void UnlockItem();
     }
 }

@@ -28,6 +28,8 @@ namespace Assets.Scripts.Helpers
 
         public Dictionary<CarPaintTypeEnum, CarPaintItem> CarPaintsData;
 
+        public Dictionary<CarPartTypeEnum, CarPartItem> CarPartsData;
+
         private DataLibrary() { }
 
         public void InitData()
@@ -41,6 +43,11 @@ namespace Assets.Scripts.Helpers
             CarsData = new();
             foreach (var car in carsData)
                 CarsData.Add(car.CarType, car);
+
+            var partsData = Resources.LoadAll<CarPartItem>("ItemsData/Parts");
+            CarPartsData = new();
+            foreach (var part in partsData)
+                CarPartsData.Add(part.PartType, part);
         }
     }
 }
