@@ -17,6 +17,7 @@ namespace Assets.Scripts.UI
         private void Start()
         {
             ShopMenuComponent.Initialize();
+            SettingsComponent.Initialize();
         }
 
         public void DrawMainPanel()
