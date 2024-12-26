@@ -64,6 +64,7 @@ namespace Assets.Scripts.UI
             foreach (var player in playerList)
             {
                 var playerObject = Instantiate(_playerPrefab, _playersContainer).GetComponent<PlayerInRoomSubcomponent>();
+                player.NickName = $"Player {player.ActorNumber}";
                 playerObject.Name.text = player.NickName;
             }
         }

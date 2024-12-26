@@ -102,6 +102,9 @@ namespace Assets.Scripts.Main
             IsGameRunning = false;
             var score = PlayerCar.GetComponent<StatsTracker>().Score; // temp
             var earnedCash = Mathf.CeilToInt(score * Constants.ScoreToMoneyMultiplayer);
+            if (IsMultiplayerGame)
+                SetPlayerResult(score);
+
             ComponentsController.GameResultsSubcomponent.Draw(score, earnedCash);
             SaveSystem.PlayerData.Cash += earnedCash;
             SaveSystem.SavePlayerData();
@@ -148,6 +151,28 @@ namespace Assets.Scripts.Main
                 { "IsReady", true }
             };
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+        }
+
+        private void SetPlayerResult(int score)
+        {
+            Hashtable props = new Hashtable
+            {
+                { "Score", score }
+            };
+            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+        }
+
+        public static bool PlayersResultsReady()
+        {
+            foreach (var player in PhotonNetwork.PlayerList)
+            {
+                if (!player.CustomProperties.TryGetValue("Score", out var score))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public static bool AllPlayersReady()

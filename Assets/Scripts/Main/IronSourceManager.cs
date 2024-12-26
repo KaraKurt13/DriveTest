@@ -26,11 +26,6 @@ public class IronSourceManager : MonoBehaviour
         IronSource.Agent.validateIntegration();
     }
 
-    private void Update()
-    {
-        Debug.Log(IronSource.Agent.isRewardedVideoAvailable());
-    }
-
     private int _doubleRewardAmount;
 
     public void DoubleReward(int amount)
