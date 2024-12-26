@@ -10,7 +10,7 @@ public class IronSourceManager : MonoBehaviour
     [SerializeField]
     private string _appKey = "208e31995";
 
-    private void Awake()
+    private void Start()
     {
         if (Instance == null)
         {
@@ -24,7 +24,6 @@ public class IronSourceManager : MonoBehaviour
 
         IronSource.Agent.init(_appKey, IronSourceAdUnits.REWARDED_VIDEO);
         IronSource.Agent.validateIntegration();
-        Debug.Log(IronSource.Agent);
     }
 
     private void Update()
