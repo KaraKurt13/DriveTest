@@ -22,12 +22,14 @@ public class IronSourceManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        IronSource.Agent.init("208e31995", IronSourceAdUnits.REWARDED_VIDEO);
+        IronSource.Agent.init(_appKey, IronSourceAdUnits.REWARDED_VIDEO);
+        IronSource.Agent.validateIntegration();
+        Debug.Log(IronSource.Agent);
     }
 
-    public bool IsRewardVideoReady()
+    private void Update()
     {
-        return IronSource.Agent.isRewardedVideoAvailable();
+        Debug.Log(IronSource.Agent.isRewardedVideoAvailable());
     }
 
     private int _doubleRewardAmount;
